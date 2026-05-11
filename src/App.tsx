@@ -339,7 +339,7 @@ export default function App() {
 
   if (currentView === 'splash') {
     return (
-      <div className="flex flex-col h-screen max-w-md mx-auto bg-primary-600 items-center justify-center text-white font-arabic p-8 text-center relative overflow-hidden" dir="rtl">
+      <div className="flex flex-col h-screen bg-primary-600 items-center justify-center text-white font-arabic p-8 text-center relative overflow-hidden w-full" dir="rtl">
         <motion.div
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
