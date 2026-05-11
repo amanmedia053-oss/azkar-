@@ -361,9 +361,9 @@ export default function App() {
   }
 
   return (
-    <div className="flex flex-col h-screen max-w-md mx-auto bg-slate-50 shadow-2xl relative overflow-hidden font-arabic" dir="rtl">
+    <div className="flex flex-col min-h-screen bg-slate-50 relative overflow-x-hidden font-arabic transition-all duration-500" dir="rtl">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md px-6 pt-[calc(1rem+env(safe-area-inset-top))] pb-4 flex items-center justify-between shadow-sm sticky top-0 z-10 transition-colors">
+      <header className="bg-white/80 backdrop-blur-md px-6 pt-[calc(1rem+env(safe-area-inset-top))] pb-4 flex items-center justify-between shadow-sm sticky top-0 z-50 transition-colors w-full max-w-7xl mx-auto rounded-b-3xl md:mt-4 md:shadow-md">
         <div className="flex items-center gap-3">
           {currentView !== 'home' ? (
             <button 
@@ -420,7 +420,7 @@ export default function App() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto pb-6 px-5 pt-5 scroll-smooth">
+      <main className="flex-1 pb-24 px-5 pt-5 scroll-smooth max-w-7xl mx-auto w-full">
         <AnimatePresence mode="wait">
           {currentView === 'home' && (
             <motion.div 
@@ -431,19 +431,21 @@ export default function App() {
               className="space-y-6"
             >
               {/* Featured Carousel */}
-              <FeaturedCarousel 
-                items={featuredAzkar} 
-                onSelect={(zikr) => {
-                  const cat = categories.find(c => c.id === zikr.cat);
-                  if (cat) {
-                    setSelectedCategory(cat as Category);
-                    setCurrentView('list');
-                  }
-                }}
-              />
+              <div className="max-w-4xl mx-auto">
+                <FeaturedCarousel 
+                  items={featuredAzkar} 
+                  onSelect={(zikr) => {
+                    const cat = categories.find(c => c.id === zikr.cat);
+                    if (cat) {
+                      setSelectedCategory(cat as Category);
+                      setCurrentView('list');
+                    }
+                  }}
+                />
+              </div>
 
               {/* Categories Grid */}
-              <section>
+              <section className="max-w-7xl mx-auto">
                 <div className="flex items-center justify-between mb-4 px-1">
                   <h3 className="text-md font-bold text-slate-800">د اذکارو ډلبندي</h3>
                   
@@ -483,7 +485,9 @@ export default function App() {
                 <motion.div 
                   layout
                   className={`grid gap-3.5 transition-all duration-500 ease-in-out ${
-                    gridMode === 1 ? 'grid-cols-1' : gridMode === 2 ? 'grid-cols-2' : 'grid-cols-3'
+                    gridMode === 1 ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 
+                    gridMode === 2 ? 'grid-cols-2 lg:grid-cols-4' : 
+                    'grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6'
                   }`}
                 >
                   {categories.map((cat) => (
@@ -500,7 +504,7 @@ export default function App() {
               {/* Tasbeeh Quick Card */}
               <section 
                 onClick={() => setCurrentView('tasbeeh')}
-                className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-transform"
+                className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-transform max-w-xl mx-auto"
               >
                 <div className="flex items-center gap-4">
                   <div className="bg-primary-50 p-3 rounded-2xl text-primary-600">
@@ -528,7 +532,7 @@ export default function App() {
             >
               {listMode === 'list' ? (
                 <motion.div 
-                  className="space-y-4"
+                   className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
                   variants={{
                     hidden: { opacity: 0 },
                     show: {
@@ -552,7 +556,7 @@ export default function App() {
                       />
                     ))
                   ) : (
-                    <div className="flex flex-col items-center justify-center py-24 text-slate-400 space-y-4">
+                    <div className="col-span-full flex flex-col items-center justify-center py-24 text-slate-400 space-y-4">
                       <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center">
                         <Star className="w-10 h-10 opacity-20" />
                       </div>
@@ -571,7 +575,7 @@ export default function App() {
           )}
 
           {currentView === 'tasbeeh' && (
-            <motion.div key="tasbeeh" className="flex-1">
+            <motion.div key="tasbeeh" className="flex-1 max-w-2xl mx-auto w-full">
               <TasbeehView 
                 totalCount={tasbeehCount} 
                 selectedZikr={selectedTasbeehZikr}
@@ -661,7 +665,7 @@ export default function App() {
                 )}
               </div>
 
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {searchQuery ? (
                   filteredAzkar.length > 0 ? (
                     filteredAzkar.map((zikr, idx) => (
@@ -675,13 +679,13 @@ export default function App() {
                       />
                     ))
                   ) : (
-                    <div className="bg-white rounded-[2rem] p-12 text-center border border-dashed border-slate-200">
+                    <div className="col-span-full bg-white rounded-[2rem] p-12 text-center border border-dashed border-slate-200">
                       <Search className="w-10 h-10 text-slate-200 mx-auto mb-3" />
                       <p className="text-slate-400 text-sm font-medium">هیڅ نتيجه ونه موندل شوه</p>
                     </div>
                   )
                 ) : (
-                  <div className="text-center py-20">
+                  <div className="col-span-full text-center py-20">
                     <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Search className="w-8 h-8 text-slate-300" />
                     </div>
@@ -1105,7 +1109,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* Bottom Nav */}
-      <nav className="bg-white border-t border-slate-100 flex items-center justify-around pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 px-4 sticky bottom-0 left-0 right-0 z-[100] h-auto shrink-0 transition-colors">
+      <nav className="bg-white/80 backdrop-blur-md border-t border-slate-100 flex items-center justify-around pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 px-4 fixed bottom-0 left-0 right-0 z-50 h-auto shrink-0 transition-colors md:max-w-2xl md:mx-auto md:mb-6 md:rounded-3xl md:border md:shadow-lg">
         <NavButton 
           active={currentView === 'home'} 
           onClick={() => navigate('home')} 
