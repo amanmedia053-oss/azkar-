@@ -30,7 +30,7 @@ jobs:
       - name: Sync with Capacitor
         run: |
           # د عمرې لارښود نوم او خپل Package ID مو ورکړ
-          npx cap init "د عمرې لارښود" "com.amanmedia.umrah" --web-dir dist
+          npx cap init "د اذکارو ټولګه" "com.obaidapp.azkaar.muslim" --web-dir dist
           npx cap add android
           npx cap sync android
 
