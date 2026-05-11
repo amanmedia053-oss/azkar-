@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Bahij';
+  src: url('./assets/Bahij.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-arabic: var(--app-font, "Noto Sans Arabic", "Inter", sans-serif);
+  --font-bahij: "Bahij", "Noto Sans Arabic", sans-serif;
+  
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+}
+
+:root {
+  --primary-50: #f0fdfa;
+  --primary-100: #ccfbf1;
+  --primary-500: #14b8a6;
+  --primary-600: #0d9488;
+  --primary-700: #0f766e;
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #f1f5f9;
+}
+
+@layer base {
+  body {
+    font-family: var(--app-font, "Noto Sans Arabic", "Inter", sans-serif);
+    @apply overflow-x-hidden transition-colors duration-300;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    direction: rtl;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+}
+
+.arabic-text {
+  direction: rtl;
+  @apply leading-relaxed;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Custom scrollbar for a cleaner mobile look */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 rounded-full;
+}
